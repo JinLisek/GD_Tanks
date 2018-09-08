@@ -1,10 +1,18 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Scripts/Map.gd" type="Script" id=1]
 [ext_resource path="res://Assets/TileSets/TerrainTileSet.tres" type="TileSet" id=2]
 [ext_resource path="res://Scenes/PlayerTank.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scenes/EnemyTank.tscn" type="PackedScene" id=4]
 
-[node name="Map01" type="Node2D" index="0"]
+[sub_resource type="Curve2D" id=1]
+
+bake_interval = 5.0
+_data = {
+"points": PoolVector2Array( 0, 0, -16.8488, 59.1501, -321.292, 217.033, 0, 0, 9.68278, 33.0095, -316.381, 789.159, -1.32038, 1.7605, 78.3425, -6.16177, -260.59, 833.532, -7.04202, 4.40126, 35.6502, -11.8834, 274.163, 832.211, 0, 0, 6.60189, -54.1355, 319.496, 789.959, 0, 0, -0.880252, -50.1744, 317.131, 241.588, 0, 0, 0, 0, 266.794, 196.162, 36.924, -12.9055, -32.0214, 7.64438, -268.5, 187.568, 9.42688, -23.0881, 0, 0, -321.292, 217.033 )
+}
+
+[node name="Map01" type="Node2D"]
 
 script = ExtResource( 1 )
 
@@ -31,6 +39,30 @@ _sections_unfolded = [ "Cell" ]
 
 [node name="PlayerTank" parent="." index="1" instance=ExtResource( 3 )]
 
-position = Vector2( -321.47, 74.5437 )
+position = Vector2( 105.043, 455.945 )
+
+[node name="Paths" type="Node2D" parent="." index="2"]
+
+[node name="Path2D" type="Path2D" parent="Paths" index="0"]
+
+self_modulate = Color( 0.5, 0.6, 1, 0.7 )
+curve = SubResource( 1 )
+_sections_unfolded = [ "Visibility" ]
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Paths/Path2D" index="0"]
+
+position = Vector2( -321.292, 217.033 )
+rotation = 1.80142
+offset = 0.0
+h_offset = 0.0
+v_offset = 0.0
+rotate = true
+cubic_interp = true
+loop = true
+lookahead = 4.0
+
+[node name="EnemyTank" parent="Paths/Path2D/PathFollow2D" index="0" instance=ExtResource( 4 )]
+
+_sections_unfolded = [ "Visibility" ]
 
 

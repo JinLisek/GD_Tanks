@@ -1,20 +1,44 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Scenes/Tank.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Assets/Spritesheet/allSprites_retina_rotated.png" type="Texture" id=2]
+[ext_resource path="res://Scripts/EnemyTank.gd" type="Script" id=2]
+[ext_resource path="res://Assets/Spritesheet/allSprites_retina_rotated.png" type="Texture" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+custom_solver_bias = 0.0
+extents = Vector2( 40.1058, 38.0599 )
+
+[sub_resource type="CircleShape2D" id=2]
+
+custom_solver_bias = 0.0
+radius = 400.0
 
 [node name="EnemyTank" index="0" instance=ExtResource( 1 )]
 
+script = ExtResource( 2 )
+bullet = null
+movement_speed = 150
+rotation_speed = null
+gun_cooldown = 0.5
+health = 100
+turret_rotation_speed = 2.0
+detect_radius = 400
+
 [node name="Body" parent="." index="0"]
 
-texture = ExtResource( 2 )
+texture = ExtResource( 3 )
 region_enabled = true
 region_rect = Rect2( 569, 96, 80, 75 )
 _sections_unfolded = [ "Region" ]
 
+[node name="CollisionShape2D" parent="." index="1"]
+
+shape = SubResource( 1 )
+
 [node name="Turret" parent="." index="2"]
 
-texture = ExtResource( 2 )
+texture = ExtResource( 3 )
 offset = Vector2( 20, 0 )
 region_enabled = true
 region_rect = Rect2( 542, 15, 60, 24 )
@@ -24,5 +48,25 @@ _sections_unfolded = [ "Offset", "Region" ]
 
 position = Vector2( 50, 0 )
 _sections_unfolded = [ "Transform" ]
+
+[node name="DetectRadius" type="Area2D" parent="." index="4"]
+
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+_sections_unfolded = [ "Visibility" ]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectRadius" index="0"]
+
+shape = SubResource( 2 )
+_sections_unfolded = [ "Visibility" ]
+
+[connection signal="body_entered" from="DetectRadius" to="." method="_on_DetectRadius_body_entered"]
+
+[connection signal="body_exited" from="DetectRadius" to="." method="_on_DetectRadius_body_exited"]
 
 
