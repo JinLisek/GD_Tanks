@@ -1,0 +1,45 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Scenes/Tank.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scripts/PlayerTank.gd" type="Script" id=2]
+[ext_resource path="res://Assets/Spritesheet/allSprites_retina_rotated.png" type="Texture" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+custom_solver_bias = 0.0
+extents = Vector2( 39.62, 41.0881 )
+
+[node name="PlayerTank" index="0" instance=ExtResource( 1 )]
+
+script = ExtResource( 2 )
+bullet = null
+movement_speed = 200
+rotation_speed = 1.0
+gun_cooldown = 0.4
+health = 100
+
+[node name="Body" parent="." index="0"]
+
+texture = ExtResource( 3 )
+region_enabled = true
+region_rect = Rect2( 1032, 167, 80, 82 )
+_sections_unfolded = [ "Region" ]
+
+[node name="CollisionShape2D" parent="." index="1"]
+
+shape = SubResource( 1 )
+
+[node name="Turret" parent="." index="2"]
+
+texture = ExtResource( 3 )
+offset = Vector2( 20, 0 )
+region_enabled = true
+region_rect = Rect2( 897, 14, 60, 24 )
+_sections_unfolded = [ "Offset", "Region" ]
+
+[node name="Muzzle" parent="Turret" index="0"]
+
+position = Vector2( 50, 0 )
+_sections_unfolded = [ "Transform" ]
+
+
