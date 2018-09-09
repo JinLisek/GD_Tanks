@@ -8,6 +8,8 @@ export (int) var detect_radius
 var target = null
 
 func _ready():
+	var circle = CircleShape2D.new()
+	$DetectRadius/CollisionShape2D.shape = circle
 	$DetectRadius/CollisionShape2D.shape.radius = detect_radius
 
 func control(delta):
