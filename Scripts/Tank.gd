@@ -5,7 +5,7 @@ signal dead
 signal shoot
 
 export (PackedScene) var bullet
-export (int) var movement_speed
+export (int) var max_speed
 export (float) var rotation_speed
 export (float) var gun_cooldown
 export (int) var health

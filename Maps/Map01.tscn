@@ -19,7 +19,7 @@ _data = {
 "points": PoolVector2Array( 0, 0, -49.2941, 4.84138, 374.953, -584.484, 0, 0, -8.36239, 143.481, 324.847, -534.378, -11.7614, -122.76, 1.47018, 40.43, 323.177, 18.451, -16.172, -13.2316, 255.811, -18.3773, 359.921, 71.8967, -91.9863, -8.36239, 32.5693, -7.48214, 1926.55, 66.8862, 6.60188, 74.8214, -3.08088, -95.5073, 1986.68, -6.60175, -18.0452, 110.472, -11.0031, -50.6144, 1993.36, -516.006, 89.3455, 8.80251, -150.523, 20.6859, 1911.52, -584.484, 218.742, 22.0063, 0, 0, 374.953, -584.484 )
 }
 
-[node name="Map01" type="Node2D" index="0"]
+[node name="Map01" type="Node2D"]
 
 script = ExtResource( 1 )
 
@@ -79,6 +79,8 @@ curve = SubResource( 2 )
 
 [node name="PathFollow2D" type="PathFollow2D" parent="Paths/Path2D2" index="0"]
 
+position = Vector2( 374.953, -584.484 )
+rotation = 3.01756
 offset = 0.0
 h_offset = 0.0
 v_offset = 0.0
@@ -90,5 +92,9 @@ lookahead = 4.0
 [node name="EnemyTank" parent="Paths/Path2D2/PathFollow2D" index="0" instance=ExtResource( 4 )]
 
 [connection signal="shoot" from="PlayerTank" to="." method="_on_Tank_shoot"]
+
+[connection signal="shoot" from="Paths/Path2D/PathFollow2D/EnemyTank" to="." method="_on_Tank_shoot"]
+
+[connection signal="shoot" from="Paths/Path2D2/PathFollow2D/EnemyTank" to="." method="_on_Tank_shoot"]
 
 
